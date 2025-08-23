@@ -20,7 +20,6 @@
     overflow: hidden;
   }
 
-  /* Card Styles */
   .card {
     background: #0d0d0d; 
     border-radius: 16px;
@@ -56,7 +55,6 @@
     margin-bottom: 2rem;
   }
 
-  /* Social Icons */
   .socials {
     display: flex;
     justify-content: center;
@@ -159,7 +157,7 @@
 
   #aboutBtn {
     margin-top: 1.5rem;
-    background: #222222; 
+    background: #0d0d0d; 
     color: #ffffff; 
     border: none;
     border-radius: 8px;
@@ -172,7 +170,7 @@
   }
 
   #aboutBtn:hover {
-    background: #333333; 
+    background: #0d0d0d; 
     transform: translateY(-3px);
   }
 
@@ -236,6 +234,22 @@
     font-size: 0.9rem;
     color: #bbbbbb; 
   }
+
+  .modal-footer {
+    margin-top: 1.5rem;
+    font-size: 0.9rem;
+    color: #bbbbbb;
+  }
+
+  .modal-footer a {
+    color: #06b6d4;
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+
+  .modal-footer a:hover {
+    color: #ffffff;
+  }
 </style>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
@@ -270,14 +284,19 @@
 <div id="aboutModal">
   <div id="aboutModalContent">
     <button id="closeModal">&times;</button>
-    <h2>ABOUT RACCOON!</h2>
+    <h2>About me!</h2>
     <div class="modal-section">
-      <p>
-        Hello, I'm raccoon. A passionate developer who enjoys creating small, fun projects.
-      </p>
-      <p>
-        In my free time, I play games, primarily indie titles and AAA games. You've probably found me on Discord, so come and have a chat with me—I'm always open for it!
-      </p>
+        <p>
+            <i class="fa-solid fa-code" style="color: #06b6d4; margin-right: 8px;"></i>
+            Hello, I'm raccoon. A passionate developer who enjoys creating small, fun projects.
+        </p>
+        <p>
+            <i class="fa-solid fa-gamepad" style="color: #06b6d4; margin-right: 8px;"></i>
+            In my free time, I play games, primarily indie titles and AAA games. You've probably found me on Discord, so come and have a chat with me—I'm always open for it!
+        </p>
+    </div>
+    <div class="modal-footer">
+        <p>Find me on <a href="https://steamcommunity.com/profiles/76561198300381454" target="_blank" style="color: #06b6d4;">Steam</a>
     </div>
   </div>
 </div>
