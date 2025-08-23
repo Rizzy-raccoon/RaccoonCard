@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About Raccoon</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+<style>
+  /* General Styles */
+  body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Inter', sans-serif;
+    background: radial-gradient(circle at top left, #1a1a1a, transparent 50%),
+                radial-gradient(circle at bottom right, #1a1a1a, transparent 50%),
+                #0a0a0a;
+    color: #a9a9a9;
+    overflow: hidden;
+  }
+
+  /* Card Styles */
+  .card {
+    background: #121212;
+    border-radius: 16px;
+    padding: 2rem;
+    max-width: 420px;
+    text-align: center;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.8);
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+
+  .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.9);
+  }
+
+  h1 {
+    margin: 0.5rem 0;
+    font-size: 2rem;
+    font-weight: 800;
+    color: #d3d3d3;
+  }
+
+  .sub {
+    color: #888;
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
+  }
+
+  .tagline {
+    color: #aaa;
+    font-size: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  /* Social Icons */
+  .socials {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    margin: 1.5rem 0;
+  }
+
+  .socials a {
+    font-size: 2rem;
+    color: #a9a9a9;
+    transition: transform 0.3s, color 0.3s;
+    filter: drop-shadow(0 0 4px #000);
+  }
+
+  .socials a:hover {
+    color: #06b6d4;
+    transform: translateY(-3px) scale(1.2);
+    text-shadow: 0 0 12px #06b6d4cc;
+  }
+
+  /* MP3 Player */
+  .mp3-player {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: #0b0b0c;
+    border: 2px solid #181718; /* Solid dark grey */
+    border-radius: 12px;
+    padding: 10px;
+    margin: 1.5rem 0;
+  }
+
+  .mp3-player img {
+    width: 50px;
+    height: 50px;
+    border-radius: 8px;
+    object-fit: cover;
+  }
+
+  .controls {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .play-btn {
+    cursor: pointer;
+    font-size: 1.2rem;
+    color: #ffffff;
+    transition: color 0.3s;
+  }
+
+  .play-btn:hover {
+    color: #048ba8;
+  }
+
+  .progress {
+    flex: 1;
+    height: 5px;
+    background: #333;
+    border-radius: 2px;
+    overflow: hidden;
+    cursor: pointer;
+  }
+
+  .progress-filled {
+    width: 0%;
+    height: 100%;
+    background: #06b6d4;
+    transition: width 0.2s;
+  }
+
+  .volume-slider {
+    width: 100%;
+    margin-top: 10px;
+    background: #181718; /* Solid dark grey */
+    border-radius: 8px;
+    appearance: none;
+    height: 5px;
+    outline: none;
+    cursor: pointer;
+  }
+
+  .volume-slider::-webkit-slider-thumb {
+    appearance: none;
+    width: 15px;
+    height: 15px;
+    background: #06b6d4; /* Thumb color */
+    border-radius: 50%;
+    cursor: pointer;
+  }
+
+  .volume-slider::-moz-range-thumb {
+    width: 15px;
+    height: 15px;
+    background: #06b6d4; /* Thumb color */
+    border-radius: 50%;
+    cursor: pointer;
+  }
+
+  /* About Me Button */
+  #aboutBtn {
+    margin-top: 1.5rem;
+    background: #555555; /* Greyish color */
+    color: #d3d3d3; /* Slightly lighter grey for button text */
+    border: none;
+    border-radius: 8px;
+    padding: 10px 20px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 2px 8px #0002;
+    transition: background 0.3s, transform 0.3s;
+  }
+
+  #aboutBtn:hover {
+    background: #777777; /* Lighter grey on hover */
+    transform: translateY(-3px);
+  }
+
+  /* Modal Styles */
+  #aboutModal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: #181718; /* Solid dark grey */
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: none; /* Removed blur effect */
+    transition: opacity 0.3s ease-in-out;
+  }
+
+  #aboutModalContent {
+    background: #1817182a; /* Solid dark purple */
+    color: #a9a9a9;
+    border-radius: 16px;
+    padding: 2rem;
+    width: 90%;
+    max-width: 400px;
+    text-align: center;
+    box-shadow: 0 8px 32px #000a;
+    animation: fadeIn 0.3s ease-in-out;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: scale(0.9);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  #closeModal {
+    position: absolute;
+    top: 10px;
+    right: 14px;
+    background: none;
+    border: none;
+    color: #888;
+    font-size: 1.3rem;
+    cursor: pointer;
+    transition: color 0.3s;
+  }
+
+  #closeModal:hover {
+    color: #d3d3d3;
+  }
+
+  .modal-section {
+    margin-top: 1rem;
+    text-align: left;
+    font-size: 0.9rem;
+    color: #a9a9a9;
+  }
+</style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+<div class="card">
+  <h1>Realise</h1>
+  <p class="sub">raccoons___</p>
+  <p class="tagline">Small developer • Has a cat • Coffee is mediocre</p>
+
+  <div class="mp3-player">
+    <img src="album-art.png" alt="Album Art">
+    <div class="controls">
+      <i class="fa-solid fa-play play-btn" id="playBtn"></i>
+      <div class="progress" id="progress">
+        <div class="progress-filled" id="progressFilled"></div>
+      </div>
+    </div>
+  </div>
+
+  <input type="range" id="volumeSlider" class="volume-slider" min="0" max="1" step="0.01" value="0.3">
+  <audio id="bg-music" src="background.mp3" loop></audio>
+
+  <button id="aboutBtn">About Me!</button>
+
+  <div class="socials">
+    <a href="https://steamcommunity.com/profiles/76561198300381454" target="_blank" title="Steam">
+      <i class="fa-brands fa-steam"></i>
+    </a>
+  </div>
+</div>
+
+<div id="aboutModal">
+  <div id="aboutModalContent">
+    <button id="closeModal">&times;</button>
+    <h2>ABOUT RACCOON!</h2>
+    <div class="modal-section">
+      <p>
+        Hello, I'm raccoon. A passionate developer who enjoys creating small, fun projects.
+      </p>
+      <p>
+        In my free time, I play games, primarily indie titles and AAA games. You've probably found me on Discord, so come and have a chat with me—I'm always open for it!
+      </p>
+    </div>
+  </div>
+</div>
+
+<script>
+const music = document.getElementById('bg-music');
+const playBtn = document.getElementById('playBtn');
+const progress = document.getElementById('progress');
+const progressFilled = document.getElementById('progressFilled');
+const volumeSlider = document.getElementById('volumeSlider');
+const aboutBtn = document.getElementById('aboutBtn');
+const aboutModal = document.getElementById('aboutModal');
+const closeModal = document.getElementById('closeModal');
+
+// Set initial volume
+music.volume = volumeSlider.value;
+
+// Play/Pause functionality
+playBtn.addEventListener('click', () => {
+  if (music.paused) {
+    music.play();
+    playBtn.classList.remove('fa-play');
+    playBtn.classList.add('fa-pause');
+  } else {
+    music.pause();
+    playBtn.classList.remove('fa-pause');
+    playBtn.classList.add('fa-play');
+  }
+});
+
+// Update progress bar as the song plays
+music.addEventListener('timeupdate', () => {
+  const percent = (music.currentTime / music.duration) * 100;
+  progressFilled.style.width = `${percent}%`;
+});
+
+// Seek functionality
+progress.addEventListener('click', (e) => {
+  const width = progress.clientWidth;
+  const clickX = e.offsetX;
+  music.currentTime = (clickX / width) * music.duration;
+});
+
+// Volume control
+volumeSlider.addEventListener('input', () => {
+  music.volume = volumeSlider.value;
+});
+
+// Open modal
+aboutBtn.addEventListener('click', () => {
+  aboutModal.style.display = 'flex';
+});
+
+// Close modal
+closeModal.addEventListener('click', () => {
+  aboutModal.style.display = 'none';
+});
+
+// Close modal by clicking outside the modal content
+aboutModal.addEventListener('click', (e) => {
+  if (e.target === aboutModal) {
+    aboutModal.style.display = 'none';
+  }
+});
+</script>
+</body>
+</html>
