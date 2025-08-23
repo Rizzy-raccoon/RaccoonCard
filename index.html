@@ -77,7 +77,6 @@
     text-shadow: 0 0 12px #06b6d4cc;
   }
 
-  /* MP3 Player */
   .mp3-player {
     display: flex;
     align-items: center;
@@ -158,7 +157,6 @@
     cursor: pointer;
   }
 
-  /* About Me Button */
   #aboutBtn {
     margin-top: 1.5rem;
     background: #222222; 
@@ -178,7 +176,6 @@
     transform: translateY(-3px);
   }
 
-  /* Modal Styles */
   #aboutModal {
     display: none;
     position: fixed;
@@ -295,10 +292,8 @@ const aboutBtn = document.getElementById('aboutBtn');
 const aboutModal = document.getElementById('aboutModal');
 const closeModal = document.getElementById('closeModal');
 
-// Set initial volume
 music.volume = volumeSlider.value;
 
-// Play/Pause functionality
 playBtn.addEventListener('click', () => {
   if (music.paused) {
     music.play().catch((error) => console.log('Error playing music:', error));
@@ -311,35 +306,29 @@ playBtn.addEventListener('click', () => {
   }
 });
 
-// Update progress bar as the song plays
 music.addEventListener('timeupdate', () => {
   const percent = (music.currentTime / music.duration) * 100;
   progressFilled.style.width = `${percent}%`;
 });
 
-// Seek functionality
 progress.addEventListener('click', (e) => {
   const width = progress.clientWidth;
   const clickX = e.offsetX;
   music.currentTime = (clickX / width) * music.duration;
 });
 
-// Volume control
 volumeSlider.addEventListener('input', () => {
   music.volume = volumeSlider.value;
 });
 
-// Open modal
 aboutBtn.addEventListener('click', () => {
   aboutModal.style.display = 'flex';
 });
 
-// Close modal
 closeModal.addEventListener('click', () => {
   aboutModal.style.display = 'none';
 });
 
-// Close modal by clicking outside the modal content
 aboutModal.addEventListener('click', (e) => {
   if (e.target === aboutModal) {
     aboutModal.style.display = 'none';
