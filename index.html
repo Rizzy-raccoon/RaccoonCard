@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Do something lmao</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+<style>
+  body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Inter', sans-serif;
+    background: radial-gradient(circle at top left, #8b5cf622, transparent 50%),
+                radial-gradient(circle at bottom right, #06b6d422, transparent 50%),
+                #0b0b0c;
+    color: #e7e7ea;
+    overflow: hidden;
+  }
+  .card {
+    background: #18181bcc;
+    border-radius: 16px;
+    padding: 2rem;
+    max-width: 420px;
+    text-align: center;
+    box-shadow: 0 12px 30px rgba(0,0,0,.6);
+    position: relative;
+  }
+  h1 {margin: .2rem 0; font-size: 1.9rem; font-weight: 700;}
+  .sub {color: #aaa; font-size: 1.2rem; margin-bottom: 1rem; font-weight: 600;}
+  .tagline {color:#bbb; font-size:.95rem; margin-bottom:1.5rem;}
+  .socials {display:flex; justify-content:center; gap:1.8rem; margin-bottom:1.5rem;}
+  .socials a {font-size:2.2rem; color:#e7e7ea; transition:.3s; filter: drop-shadow(0 0 4px #000);}
+  .socials a:hover {color:#06b6d4; transform: translateY(-3px) scale(1.2); text-shadow: 0 0 12px #06b6d4cc;}
+  .mp3-player {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: #0b0b0c;
+    border: 2px solid #06b6d4;
+    border-radius: 12px;
+    padding: 5px 10px;
+    max-width: 100%;
+    margin: 0 auto 10px auto;
+  }
+  .mp3-player img {
+    width: 50px;
+    height: 50px;
+    border-radius: 8px;
+    object-fit: cover;
+  }
+  .controls {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .play-btn {
+    cursor: pointer;
+    font-size: 1.2rem;
+    color: #06b6d4;
+  }
+  .progress {
+    flex: 1;
+    height: 5px;
+    background: #333;
+    border-radius: 2px;
+    overflow: hidden;
+    cursor: pointer;
+  }
+  .progress-filled {
+    width: 0%;
+    height: 100%;
+    background: #06b6d4;
+  }
+  .volume-slider {
+    width: 100%;
+    margin-top: 5px;
+  }
+</style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+<div class="card">
+  <h1>Realise</h1>
+  <p class="sub">raccoons___</p>
+  <p class="tagline">Small developer • Has a cat • Coffee is mediocre</p>
+  <div class="mp3-player">
+    <img src="album-art.png" alt="Album Art">
+    <div class="controls">
+      <i class="fa-solid fa-play play-btn" id="playBtn"></i>
+      <div class="progress" id="progress">
+        <div class="progress-filled" id="progressFilled"></div>
+      </div>
+    </div>
+  </div>
+  <input type="range" id="volumeSlider" class="volume-slider" min="0" max="1" step="0.01" value="0.3">
+  <div class="socials">
+    <a href="https://steamcommunity.com/profiles/76561198300381454" target="_blank" title="Steam">
+      <i class="fa-brands fa-steam"></i>
+    </a>
+  </div>
+  <audio id="bg-music" src="background.mp3" loop></audio>
+</div>
+<script>
+const music = document.getElementById('bg-music');
+const playBtn = document.getElementById('playBtn');
+const progress = document.getElementById('progress');
+const progressFilled = document.getElementById('progressFilled');
+const volumeSlider = document.getElementById('volumeSlider');
+
+music.volume = volumeSlider.value;
+
+playBtn.addEventListener('click', () => {
+  if (music.paused) {
+    music.play();
+    playBtn.classList.remove('fa-play');
+    playBtn.classList.add('fa-pause');
+  } else {
+    music.pause();
+    playBtn.classList.remove('fa-pause');
+    playBtn.classList.add('fa-play');
+  }
+});
+
+music.addEventListener('timeupdate', () => {
+  const percent = (music.currentTime / music.duration) * 100;
+  progressFilled.style.width = percent + '%';
+});
+
+progress.addEventListener('click', (e) => {
+  const width = progress.clientWidth;
+  const clickX = e.offsetX;
+  music.currentTime = (clickX / width) * music.duration;
+});
+
+volumeSlider.addEventListener('input', () => {
+  music.volume = volumeSlider.value;
+});
+</script>
+</body>
+</html>
