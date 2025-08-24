@@ -1,358 +1,168 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>About Raccoon</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
-<style>
-  body {
-    margin: 0;
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: 'Inter', sans-serif;
-    background: radial-gradient(circle at top left, #0a0a0a, transparent 50%),
-                radial-gradient(circle at bottom right, #0a0a0a, transparent 50%),
-                #000000; 
-    color: #e0e0e0; 
-    overflow: hidden;
-  }
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Raccoon</title>
+    <meta name="description" content="Idiotic developer" />
+    <meta name="author" content="Raccoon" />
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
-  .card {
-    background: #0d0d0d; 
-    border-radius: 16px;
-    padding: 2rem;
-    max-width: 420px;
-    text-align: center;
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.9); 
-    transition: transform 0.3s, box-shadow 0.3s;
-  }
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          container: { center: true, padding: '2rem' },
+          extend: {
+            colors: {
+              background: 'hsl(var(--background))',
+              foreground: 'hsl(var(--foreground))',
+              card: 'hsl(var(--card))',
+              'card-foreground': 'hsl(var(--card-foreground))',
+              popover: 'hsl(var(--popover))',
+              'popover-foreground': 'hsl(var(--popover-foreground))',
+              primary: 'hsl(var(--primary))',
+              'primary-foreground': 'hsl(var(--primary-foreground))',
+              secondary: 'hsl(var(--secondary))',
+              'secondary-foreground': 'hsl(var(--secondary-foreground))',
+              muted: 'hsl(var(--muted))',
+              'muted-foreground': 'hsl(var(--muted-foreground))',
+              accent: 'hsl(var(--accent))',
+              'accent-foreground': 'hsl(var(--accent-foreground))',
+              destructive: 'hsl(var(--destructive))',
+              'destructive-foreground': 'hsl(var(--destructive-foreground))',
+              border: 'hsl(var(--border))',
+              input: 'hsl(var(--input))',
+              ring: 'hsl(var(--ring))'
+            },
+            borderRadius: {
+              lg: 'var(--radius)',
+              md: 'calc(var(--radius) - 2px)',
+              sm: 'calc(var(--radius) - 4px)'
+            },
+            keyframes: {
+              'fade-in': {
+                '0%': { opacity: '0', transform: 'translateY(20px)' },
+                '100%': { opacity: '1', transform: 'translateY(0)' }
+              },
+              'pulse-soft': {
+                '0%, 100%': { opacity: '0.6', transform: 'scale(1)' },
+                '50%': { opacity: '1', transform: 'scale(1.05)' }
+              }
+            },
+            animation: {
+              'fade-in': 'fade-in 0.8s ease-out both',
+              'pulse-soft': 'pulse-soft 3s ease-in-out infinite'
+            },
+            boxShadow: {
+              glow: '0 0 40px 0 hsla(var(--accent), 0.35)'
+            },
+            backgroundImage: {
+              'hero-gradient': 'radial-gradient(1200px 600px at 50% -20%, hsla(var(--accent),0.25), transparent 60%), radial-gradient(800px 400px at -10% 60%, hsla(var(--primary),0.15), transparent 60%), radial-gradient(800px 400px at 110% 60%, hsla(var(--secondary),0.15), transparent 60%)'
+            }
+          }
+        }
+      }
+    </script>
 
-  .card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 16px 40px rgba(0, 0, 0, 1); 
-  }
+    <link rel="stylesheet" href="style.css" />
+  </head>
 
-  h1 {
-    margin: 0.5rem 0;
-    font-size: 2rem;
-    font-weight: 800;
-    color: #ffffff; 
-  }
+  <body class="min-h-screen bg-background text-foreground font-sans">
 
-  .sub {
-    color: #bbbbbb; 
-    font-size: 1.2rem;
-    margin-bottom: 1rem;
-    font-weight: 600;
-  }
-
-  .tagline {
-    color: #999999;
-    font-size: 1rem;
-    margin-bottom: 2rem;
-  }
-
-  .socials {
-    display: flex;
-    justify-content: center;
-    gap: 1.5rem;
-    margin: 1.5rem 0;
-  }
-
-  .socials a {
-    font-size: 2rem;
-    color: #ffffff; 
-    transition: transform 0.3s, color 0.3s;
-    filter: drop-shadow(0 0 4px #000);
-  }
-
-  .socials a:hover {
-    color: #06b6d4;
-    transform: translateY(-3px) scale(1.2);
-    text-shadow: 0 0 12px #06b6d4cc;
-  }
-
-  .mp3-player {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    background: #0a0a0a; 
-    border: 2px solid #000000; 
-    border-radius: 12px;
-    padding: 10px;
-    margin: 1.5rem 0;
-  }
-
-  .mp3-player img {
-    width: 50px;
-    height: 50px;
-    border-radius: 8px;
-    object-fit: cover;
-  }
-
-  .controls {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-
-  .play-btn {
-    cursor: pointer;
-    font-size: 1.2rem;
-    color: #ffffff;
-    transition: color 0.3s;
-  }
-
-  .play-btn:hover {
-    color: #048ba8;
-  }
-
-  .progress {
-    flex: 1;
-    height: 5px;
-    background: #333;
-    border-radius: 2px;
-    overflow: hidden;
-    cursor: pointer;
-  }
-
-  .progress-filled {
-    width: 0%;
-    height: 100%;
-    background: #06b6d4;
-    transition: width 0.2s;
-  }
-
-  .volume-slider {
-    width: 100%;
-    margin-top: 10px;
-    background: #0a0a0a;
-    border-radius: 8px;
-    appearance: none;
-    height: 5px;
-    outline: none;
-    cursor: pointer;
-  }
-
-  .volume-slider::-webkit-slider-thumb {
-    appearance: none;
-    width: 15px;
-    height: 15px;
-    background: #06b6d4;
-    border-radius: 50%;
-    cursor: pointer;
-  }
-
-  .volume-slider::-moz-range-thumb {
-    width: 15px;
-    height: 15px;
-    background: #06b6d4;
-    border-radius: 50%;
-    cursor: pointer;
-  }
-
-  #aboutBtn {
-    margin-top: 1.5rem;
-    background: #0d0d0d; 
-    color: #ffffff; 
-    border: none;
-    border-radius: 8px;
-    padding: 10px 20px;
-    font-size: 1rem;
-    font-weight: 600;
-    cursor: pointer;
-    box-shadow: 0 2px 8px #0002;
-    transition: background 0.3s, transform 0.3s;
-  }
-
-  #aboutBtn:hover {
-    background: #0d0d0d; 
-    transform: translateY(-3px);
-  }
-
-  #aboutModal {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background: #000000;
-    z-index: 1000;
-    align-items: center;
-    justify-content: center;
-    backdrop-filter: none;
-    transition: opacity 0.3s ease-in-out;
-  }
-
-  #aboutModalContent {
-    background: #000000; 
-    color: #e0e0e0; /
-    border-radius: 16px;
-    padding: 2rem;
-    width: 90%;
-    max-width: 400px;
-    text-align: center;
-    box-shadow: 0 8px 32px #000a;
-    animation: fadeIn 0.3s ease-in-out;
-  }
-
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-      transform: scale(0.9);
-    }
-    to {
-      opacity: 1;
-      transform: scale(1);
-    }
-  }
-
-  #closeModal {
-    position: absolute;
-    top: 10px;
-    right: 14px;
-    background: none;
-    border: none;
-    color: #888888; 
-    font-size: 1.3rem;
-    cursor: pointer;
-    transition: color 0.3s;
-  }
-
-  #closeModal:hover {
-    color: #ffffff; 
-  }
-
-  .modal-section {
-    margin-top: 1rem;
-    text-align: left;
-    font-size: 0.9rem;
-    color: #bbbbbb; 
-  }
-
-  .modal-footer {
-    margin-top: 1.5rem;
-    font-size: 0.9rem;
-    color: #bbbbbb;
-  }
-
-  .modal-footer a {
-    color: #06b6d4;
-    text-decoration: none;
-    transition: color 0.3s;
-  }
-
-  .modal-footer a:hover {
-    color: #ffffff;
-  }
-</style>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-</head>
-<body>
-<div class="card">
-  <h1>Realise</h1>
-  <p class="sub">raccoons___</p>
-  <p class="tagline">Small developer • Has a cat • Coffee is mediocre</p>
-
-  <div class="mp3-player">
-    <img src="album-art.png" alt="Album Art">
-    <div class="controls">
-      <i class="fa-solid fa-play play-btn" id="playBtn"></i>
-      <div class="progress" id="progress">
-        <div class="progress-filled" id="progressFilled"></div>
+    <section id="hero" class="min-h-screen flex items-center justify-center bg-hero-gradient relative overflow-hidden">
+      <div aria-hidden="true" class="pointer-events-none absolute inset-0 opacity-10">
+        <div class="absolute top-1/4 left-1/4 w-64 h-64 bg-accent rounded-full blur-3xl animate-pulse-soft"></div>
+        <div class="absolute bottom-1/4 right-1/4 w-48 h-48 bg-accent rounded-full blur-3xl animate-pulse-soft" style="animation-delay:1.2s"></div>
       </div>
-    </div>
-  </div>
+      <div class="container mx-auto px-6 text-center relative z-10">
+        <div class="space-y-8 animate-fade-in">
+          <h1 class="text-6xl md:text-8xl font-extrabold mb-4 tracking-tight">
+            <span class="inline-block hover:text-accent transition-colors duration-500 cursor-default">Raccoon - Idiotic developer</span>
+          </h1>
+          <p class="text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto">
+            Name says enough
+          </p>
+          <div class="pt-8">
+            <a href="#about" class="inline-block p-1 rounded-full bg-gradient-to-r from-accent/20 to-primary/20 hover:from-accent/30 hover:to-primary/30 transition-all duration-300">
+              <span class="px-6 py-2 rounded-full bg-background/60 backdrop-blur text-foreground hover:bg-background/80 transition-all duration-300">
+                Scroll to explore
+              </span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
 
-  <input type="range" id="volumeSlider" class="volume-slider" min="0" max="1" step="0.01" value="0.3">
-  <audio id="bg-music" src="background.mp3" loop></audio>
+    <section id="music" class="py-16 px-6 bg-background text-center">
+      <h2 class="text-3xl font-bold mb-8">Now Playing</h2>
+      <div class="player mx-auto max-w-md bg-card/80 border border-border rounded-2xl p-6 shadow-glow backdrop-blur">
+        <audio id="player" src="music.mp3"></audio>
+        <button id="playBtn" class="px-4 py-2 rounded-full bg-accent text-accent-foreground font-semibold transition hover:scale-105">Play</button>
+        <div class="mt-6">
+          <input id="seekBar" type="range" value="0" min="0" max="100" class="w-full accent-[hsl(var(--accent))]">
+        </div>
+        <div class="flex justify-between text-sm text-muted-foreground mt-2">
+          <span id="currentTime">0:00</span>
+          <span id="duration">0:00</span>
+        </div>
+        <div class="mt-6 flex items-center space-x-4">
+          <input id="volumeBar" type="range" min="0" max="1" step="0.01" value="0.25" class="flex-1 accent-[hsl(var(--accent))]">
+        </div>
+      </div>
+    </section>
 
-  <button id="aboutBtn">About Me!</button>
+    <section id="about" class="py-20 px-6 bg-background">
+      <div class="container mx-auto max-w-4xl">
+        <div class="text-center space-y-12">
+          <div class="space-y-4">
+            <h2 class="text-4xl md:text-5xl font-bold">About Me</h2>
+            <div class="w-24 h-1 bg-accent mx-auto rounded-full"></div>
+          </div>
+          <div class="max-w-3xl mx-auto">
+            <div class="bg-card/50 backdrop-blur-sm rounded-2xl border border-border/20 hover:shadow-glow transition-all duration-500 p-8 text-left space-y-6">
+              <p class="text-lg md:text-xl text-muted-foreground leading-relaxed">
+                I'm a developer focused on making stupid stuff.
+              </p>
+              <p class="text-lg md:text-xl text-muted-foreground leading-relaxed">
+                Over the years I've worked with python, node, css, JavaScript and MongoDB.
+              </p>
+              <p class="text-lg md:text-xl text-muted-foreground leading-relaxed">
+                Let's build something amazing together.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
-  <div class="socials">
-    <a href="https://steamcommunity.com/profiles/76561198300381454" target="_blank" title="Steam">
-      <i class="fa-brands fa-steam"></i>
-    </a>
-  </div>
-</div>
+    <section id="skills" class="py-20 px-6 bg-secondary/20">
+      <div class="container mx-auto max-w-5xl">
+        <div class="text-center space-y-10">
+          <div class="space-y-4">
+            <h2 class="text-4xl md:text-5xl font-bold">Skills</h2>
+            <div class="w-24 h-1 bg-accent mx-auto rounded-full"></div>
+          </div>
+          <ul class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 max-w-3xl mx-auto">
+            <li class="skill">JavaScript</li>
+            <li class="skill">Node.js</li>
+            <li class="skill">Python</li>
+            <li class="skill">CSS/Sass</li>
+            <li class="skill">UI/UX Design</li>
+            <li class="skill">MongoDB</li>
+          </ul>
+          <div class="pt-8">
+            <p class="text-muted-foreground max-w-2xl mx-auto">
+              Always learning although I'm less interested in it at the moment.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
 
-<div id="aboutModal">
-  <div id="aboutModalContent">
-    <button id="closeModal">&times;</button>
-    <h2>About me!</h2>
-    <div class="modal-section">
-        <p>
-            <i class="fa-solid fa-code" style="color: #06b6d4; margin-right: 8px;"></i>
-            Hello, I'm raccoon. A passionate developer who enjoys creating small, fun projects.
-        </p>
-        <p>
-            <i class="fa-solid fa-gamepad" style="color: #06b6d4; margin-right: 8px;"></i>
-            In my free time, I play games, primarily indie titles and AAA games. You've probably found me on Discord, so come and have a chat with me—I'm always open for it!
-        </p>
-    </div>
-    <div class="modal-footer">
-        <p>Find me on <a href="https://steamcommunity.com/profiles/76561198300381454" target="_blank" style="color: #06b6d4;">Steam</a>
-    </div>
-  </div>
-</div>
-
-<script>
-const music = document.getElementById('bg-music');
-const playBtn = document.getElementById('playBtn');
-const progress = document.getElementById('progress');
-const progressFilled = document.getElementById('progressFilled');
-const volumeSlider = document.getElementById('volumeSlider');
-const aboutBtn = document.getElementById('aboutBtn');
-const aboutModal = document.getElementById('aboutModal');
-const closeModal = document.getElementById('closeModal');
-
-music.volume = volumeSlider.value;
-
-playBtn.addEventListener('click', () => {
-  if (music.paused) {
-    music.play().catch((error) => console.log('Error playing music:', error));
-    playBtn.classList.remove('fa-play');
-    playBtn.classList.add('fa-pause');
-  } else {
-    music.pause();
-    playBtn.classList.remove('fa-pause');
-    playBtn.classList.add('fa-play');
-  }
-});
-
-music.addEventListener('timeupdate', () => {
-  const percent = (music.currentTime / music.duration) * 100;
-  progressFilled.style.width = `${percent}%`;
-});
-
-progress.addEventListener('click', (e) => {
-  const width = progress.clientWidth;
-  const clickX = e.offsetX;
-  music.currentTime = (clickX / width) * music.duration;
-});
-
-volumeSlider.addEventListener('input', () => {
-  music.volume = volumeSlider.value;
-});
-
-aboutBtn.addEventListener('click', () => {
-  aboutModal.style.display = 'flex';
-});
-
-closeModal.addEventListener('click', () => {
-  aboutModal.style.display = 'none';
-});
-
-aboutModal.addEventListener('click', (e) => {
-  if (e.target === aboutModal) {
-    aboutModal.style.display = 'none';
-  }
-});
-</script>
-</body>
+    <script src="script.js"></script>
+  </body>
 </html>

@@ -1,0 +1,80 @@
+:root {
+  --background: 222 84% 5%;
+  --foreground: 210 20% 95%;
+  --card: 222 84% 7%;
+  --card-foreground: 210 20% 95%;
+  --popover: 222 84% 7%;
+  --popover-foreground: 210 20% 95%;
+  --primary: 262 83% 58%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 217 32% 17%;
+  --secondary-foreground: 210 20% 95%;
+  --muted: 217 32% 17%;
+  --muted-foreground: 215 20% 75%;
+  --accent: 262 83% 58%;
+  --accent-foreground: 210 20% 95%;
+  --destructive: 0 62% 50%;
+  --destructive-foreground: 210 20% 95%;
+  --border: 215 30% 25%;
+  --input: 215 30% 25%;
+  --ring: 262 83% 58%;
+  --radius: 1rem;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body { font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji"; }
+
+.skill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 0.875rem;
+  border-radius: 9999px;
+  background-color: hsl(var(--card) / 0.6);
+  border: 1px solid hsl(var(--border) / 0.5);
+  color: hsl(var(--foreground));
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+  backdrop-filter: blur(4px);
+}
+
+.skill:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 24px hsla(var(--accent), 0.25);
+  background-color: hsl(var(--card) / 0.8);
+}
+
+html { scroll-behavior: smooth; }
+
+.player {
+  text-align: center;
+}
+
+#seekBar,
+#volumeBar {
+  appearance: none;
+  height: 6px;
+  border-radius: 9999px;
+  background: hsl(var(--muted));
+  cursor: pointer;
+}
+
+#seekBar::-webkit-slider-thumb,
+#volumeBar::-webkit-slider-thumb {
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: hsl(var(--accent));
+  cursor: pointer;
+}
+
+#seekBar::-moz-range-thumb,
+#volumeBar::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: hsl(var(--accent));
+  border: none;
+  cursor: pointer;
+}
